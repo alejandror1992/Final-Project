@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ user_profile.user }}'s Profile</h1>
+  <p>{{ user_profile.bio }}</p>
+  <h2>Styles:</h2>
+  <ul>
+    {% for style in user.styles.all %}
+      <li>{{ style.name }}</li>
+    {% empty %}
+      <li>No styles selected</li>
+    {% endfor %}
+  </ul>
+  <h2>Academies Visited:</h2>
+  <ul>
+    {% for academy in user.academies_visited.all %}
+      <li>{{ academy.name }}</li>
+    {% empty %}
+      <li>No academies visited yet</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

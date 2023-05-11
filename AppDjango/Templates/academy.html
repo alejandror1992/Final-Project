@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{academy.name}}</h1>
+<p>{{academy.description}}</p>
+<p>Adress: {{academy.adress}}</p>
+<h2>Styles Offered</h2>
+<ul>
+{% for style in academy.styles.all %}
+  <li>{{ style.name }}</li>
+{% empty %}
+  <li>No styles offered yet</li>
+{% endfor %}
+</ul>
+<h2>Reviews</h2>
+{% for review in academy.reviews.all %}
+  <div>
+    <p>{{review.content}}</p>
+    <p>Rating: {{review.rating}}</p>
+    <p>Posted by: {{review.user_profile}}</p>
+  </div>
+{% empty %}
+  <p>No reviews yet</p>
+{% endfor %}
+{% endblock %}

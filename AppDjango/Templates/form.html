@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Edit Academy</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ AcademyForm.as_p }}
+    <button type="submit">Save</button>
+  </form>
+
+  <h2>Edit Profile</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ ProfileForm.as_p }}
+    <button type="submit">Save</button>
+  </form>
+
+  <h2>Change Password</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ PasswordChangeForm.as_p }}
+    <button type="submit">Save</button>
+  </form>
+
+  <hr>
+
+  <h2>Create Event</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ EventForm.as_p }}
+    <button type="submit">Create</button>
+  </form>
+{% endblock %}

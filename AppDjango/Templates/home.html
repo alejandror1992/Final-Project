@@ -1,0 +1,27 @@
+<!-- templates/home.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Welcome to Unbeaten The Martial Arts Network</h1>
+<form action="{% url 'search' %}" method="get">
+  <input type="text" name="query" placeholder="Search">
+  <button type="submit">Search</button>
+</form>
+<h2>Featured Academies</h2>
+{% for academy in featured_academies %}
+  <div>
+    <h3>{{ academy.name }}</h3>
+    <p>{{ academy.description }}</p>
+    <a href="{% url 'academy'%}">Learn more</a>
+  </div>
+{% endfor %}
+<h2>Featured Events</h2>
+{% for event in featured_events %}
+  <div>
+    <h3>{{ event.name }}</h3>
+    <p>{{ event.description }}</p>
+    <a href="{% url 'events' %}">Learn more</a>
+  </div>
+{% endfor %}
+{% endblock %}
