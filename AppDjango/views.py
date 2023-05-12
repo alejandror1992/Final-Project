@@ -105,4 +105,4 @@ def change_password(request):
             return redirect('home')
     else:
         form = PasswordChangeForm(user=request.user)
-    return render(request, 'AppDjango/form.html', {'form': form})
+    return render(request, 'form.html', {'form': form})
