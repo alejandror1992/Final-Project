@@ -23,9 +23,19 @@ def events (request):
     context = {"events":events,}
     return render(request, "events.html",context)
 
-def profile (request):
+def profile (request, query=None):
     user_profile = UserProfile.objects.get(user=request.user)
-    context = {"user_profile":user_profile,}
+    context = {"user_profile":user_profile,}  
+    academies = academy.objects.all()
+    events = events.filter.objects.all()
+    if query:
+      academies = academies.filter(name__icontains=query)
+      events = events.filter(name__icontains=query)
+    
+    context = {
+        'academies': academies,
+        'events': events,
+    }
     return render(request, "profile.html",context)
 
 def form(request):

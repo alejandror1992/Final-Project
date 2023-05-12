@@ -6,6 +6,10 @@
 <h1>Welcome to Unbeaten The Martial Arts Network</h1>
 <form action="{% url 'profile' %}" method="get">
   <input type="text" name="query" placeholder="Search">
+  <select name="type">
+    <option value="academy">Academy</option>
+    <option value="event">Event</option>
+  </select>
   <button type="submit">Search</button>
 </form>
 <h2>Featured Academies</h2>
@@ -13,7 +17,7 @@
   <div>
     <h3>{{ academy.name }}</h3>
     <p>{{ academy.description }}</p>
-    <a href="{% url 'academy'%}">Learn more</a>
+    <a href="{% url 'academy' %}">Learn more</a>
   </div>
 {% endfor %}
 <h2>Featured Events</h2>

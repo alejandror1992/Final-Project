@@ -4,6 +4,8 @@ from AppDjango import views
 
 urlpatterns = [
     path('home/', views.home, name='home'),
+    path('profile/', views.profile, name='profile'),
+    path('profile/<str:query>',views.profile, name='profile'),
     path('academy/', views.academy, name='academy'),
     path('event/', views.events, name='events'),
     path('form/', views.form, name='form'),
