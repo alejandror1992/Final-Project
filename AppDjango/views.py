@@ -11,22 +11,22 @@ def home (request):
     featured_events = Event.objects.filter(featured=True)
     context = {"featured_academies":featured_academies,
                "featured_events": featured_events}
-    return render(request, "AppDjango/home.html", context)
+    return render(request, "home.html", context)
 
 def academy (request):
     academy = Academy.objects.first()
     context = {"academy":academy,}
-    return render(request, "AppDjango/academy.html",context)
+    return render(request, "academy.html",context)
 
 def events (request):
     events = Event.objects.all()
     context = {"events":events,}
-    return render(request, "AppDjango/events.html",context)
+    return render(request, "events.html",context)
 
 def profile (request):
     user_profile = UserProfile.objects.get(user=request.user)
     context = {"user_profile":user_profile,}
-    return render(request, "AppDjango/profile.html",context)
+    return render(request, "profile.html",context)
 
 def form(request):
   if request.method == 'POST':
