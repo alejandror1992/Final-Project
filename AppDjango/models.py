@@ -23,7 +23,7 @@ class Academy(models.Model):
     description = models.TextField()
     styles = models.ManyToManyField(Style, related_name='academies', limit_choices_to={"allowed_objects":True})
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='academies_created')
-
+    featured = models.BooleanField(default=False)
     def __str__(self):
         return self.name
     
@@ -33,7 +33,7 @@ class Event(models.Model):
     date = models.DateTimeField()
     description = models.TextField()
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='events_created')
-
+    featured = models.BooleanField(default=False)
     def __str__(self):
         return self.name
 
