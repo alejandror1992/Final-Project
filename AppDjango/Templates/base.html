@@ -11,14 +11,14 @@
            <a class="navbar-brand" href="{% url 'profile' %}">Profile</a>
            <a class="navbar-brand"href="{% url 'logout' %}">Logout</a>
            {% else %}
-           <a class="navbar-brand" href="{% url 'academy' %}">Login</a>
-           <a class="navbar-brand" href="{% url 'events' %}">Signup</a>
+           <a class="navbar-brand" href="{% url 'academy' %}">Academies</a>
+           <a class="navbar-brand" href="{% url 'events' %}">Events</a>
            {% endif %}
         </div>
     </nav>
     <main>
         {% block content %}{% endblock %}
-        <p style="color:rgb(91, 148, 34);">WELCOME TO UNBEATEN</P>
+        <p style="color:rgb(91, 148, 34);">MADE TO BE MORE</P>
     </main>
 </body>
 </html>
