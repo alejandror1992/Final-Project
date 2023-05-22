@@ -3,6 +3,7 @@
 {% block content %}
   <h1>{{ user_profile.user }}'s Profile</h1>
   <p>{{ user_profile.bio }}</p>
+  
   <h2>Styles:</h2>
   <ul>
     {% for style in user.styles.all %}
@@ -11,6 +12,10 @@
       <li>No styles selected</li>
     {% endfor %}
   </ul>
+  <p>{{ user_profile.medals }}</p>
+  <p>{{ user_profile.amateur_record }}</p>
+  <p>{{ user_profile.professional_record }}</p>
+
   <h2>Academies Visited:</h2>
   <ul>
     {% for academy in user.academies_visited.all %}

@@ -15,4 +15,4 @@ class ProfileForm(forms.ModelForm):
     styles = forms.ModelMultipleChoiceField(queryset= Style.objects.all())
     class Meta:
         model = UserProfile
-        fields = ['user','bio', 'styles', 'academies_visited']
+        fields = ['user','bio', 'medals', 'amateur_record', 'profesional_record', 'styles', 'academies_visited']
