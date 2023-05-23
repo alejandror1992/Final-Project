@@ -77,8 +77,8 @@ class UserProfile(models.Model):
     academies_visited = models.ManyToManyField(Academy, related_name='visitors')
 
     #FOR MMA:
-    amateur_record = models.OneToOneField(Record, on_delete=models.CASCADE)
-    professional_record = models.OneToOneField(Record, on_delete=models.CASCADE)
+    amateur_record = models.OneToOneField(Record, on_delete=models.CASCADE, related_name="amateur_profile", null=True, blank=True)
+    professional_record = models.OneToOneField(Record, on_delete=models.CASCADE, related_name="professional_profile", null=True, blank=True)
 
     def __str__(self):
         return self.user.username
