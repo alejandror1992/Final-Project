@@ -10,7 +10,6 @@ class AllowedStylesManager(models.Manager):
 
 class Style(models.Model):
     name = models.CharField(max_length=100)
-
     objects = models.Manager()  # default manager
     allowed_objects = AllowedStylesManager()  # custom manager
 
@@ -22,7 +21,7 @@ class MedalManager(models.Manager):
         if allowed_styles == ['Karate', 'Judo', 'Taekwondo', 'KungFu']:
              return super().get_queryset().filter(style__name__in=self.allowed_styles)
         else:
-            return Medal.object.none()
+            return Medal.objects.none()
 
 class Medal(models.Model):
     MEDAL_CHOICES = [
