@@ -40,9 +40,9 @@ def login_view(request):
        form = AuthenticationForm()
    return render(
        request=request,
-       template_name='AppUser/login.html',
+       template_name='AppUsers/login.html',
        context={'form': form},
    )
 
 class CustomLogoutView(LogoutView):
-    template_name = 'AppUser/logout.html'
+    template_name = 'AppUsers/logout.html'
