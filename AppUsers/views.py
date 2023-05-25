@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
-from AppUsers.form import UserRegisterForm
+from AppUsers.form import UserRegisterForm, Us
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LogoutView
@@ -8,7 +8,6 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
 
-from perfiles.forms import UserRegisterForm, UserUpdateForm
 
 
 def register(request):
