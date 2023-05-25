@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
-from AppUsers.form import UserRegisterForm
+from AppUsers.form import UserRegisterForm, UserUpdateForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LogoutView
@@ -54,7 +54,7 @@ class CustomLogoutView(LogoutView):
 class MyProfileUpdateView(LoginRequiredMixin, UpdateView):
    form_class = UserUpdateForm
    success_url = reverse_lazy('Home')
-   template_name = 'AppUsers/profile_form.html'
+   template_name = 'AppDjango/form.html'
 
    def get_object(self, queryset=None):
        return self.request.user
