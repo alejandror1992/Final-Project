@@ -26,13 +26,13 @@
                 </li>
             </ul>
             </div>
-        </div>
-        {% else %}
-        <a class="btn btn-primary" href="{% url 'login' %}">Log In</a>
-        <a class="btn btn-success" href="{% url 'profile' %}">Profile</a>
+         </div>
+         {% else %}
+         <a class="btn btn-primary" href="{% url 'login' %}">Log In</a>
+         <a class="btn btn-success" href="{% url 'profile' %}">Profile</a>
            
-           {% endif %}
-        </div>
+         {% endif %}
+     </div>
     </nav>
     <main>
         {% block content %}{% endblock %}
