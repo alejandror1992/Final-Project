@@ -51,10 +51,10 @@ def login_view(request):
 class CustomLogoutView(LogoutView):
     template_name = 'AppUsers/logout.html'
 
-class MyProfileUpdateView(LoginRequiredMixin, UpdateView):
-   form_class = UserUpdateForm
-   success_url = reverse_lazy('Home')
-   template_name = 'AppDjango/form.html'
+#class MyProfileUpdateView(LoginRequiredMixin, UpdateView):
+   #form_class = UserUpdateForm
+   #success_url = reverse_lazy('Home')
+   #template_name = 'AppDjango/form.html'
 
-   def get_object(self, queryset=None):
-       return self.request.user
+   #def get_object(self, queryset=None):
+       #return self.request.user
