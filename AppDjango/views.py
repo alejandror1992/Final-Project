@@ -23,6 +23,7 @@ def events (request):
     context = {"events":events,}
     return render(request, "events.html",context)
 
+@login_required
 def profile (request, query=None):
     user_profile = UserProfile.objects.get(user=request.user)
     context = {"user_profile":user_profile,}  
