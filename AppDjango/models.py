@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from AppUsers.models import Avatar
+from AppUsers.form import AvatarForm
 
 class AllowedStylesManager(models.Manager):
     def get_queryset(self):
@@ -68,7 +68,7 @@ class Event(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = Avatar
+    avatar = AvatarForm
     bio = models.TextField(blank=True)
     competitor = models.BooleanField(default=False)
     medals = models.ForeignKey(Medal, on_delete=models.CASCADE, null=True, blank=True)
