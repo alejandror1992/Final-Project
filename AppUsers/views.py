@@ -9,7 +9,6 @@ from django.contrib.auth import login, authenticate
 #from django.views.generic import UpdateView
 
 
-
 def register(request):
    if request.method == "POST":
        registerform = UserRegisterForm(request.POST)
@@ -61,6 +60,7 @@ class CustomLogoutView(LogoutView):
 
    #def get_object(self, queryset=None):
        #return self.request.user
+
 def avatar_upload(request):
   if request.method == "POST":
       form = AvatarForm(request.POST, request.FILES)
