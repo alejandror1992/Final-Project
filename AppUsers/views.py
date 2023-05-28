@@ -27,6 +27,7 @@ def register(request):
    )
 
 def login_view(request):
+   next_url = request.GET.get("next")
    if request.method == "POST":
        form = AuthenticationForm(request, data=request.POST)
 
@@ -38,6 +39,8 @@ def login_view(request):
            # user can be a user or None
            if user:
                login(request=request, user=user)
+               if next_url:
+                   return redirect(next_url)
                url_ok = reverse('Home')
                return redirect(url_ok)
    else:  # GET
