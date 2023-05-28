@@ -15,7 +15,7 @@ def register(request):
 
        if registerform.is_valid():
            registerform.save()
-           url_ok = reverse('Home')
+           url_ok = reverse('home')
            return redirect(url_ok)
    else:  # GET
        registerform = UserRegisterForm()
@@ -40,7 +40,7 @@ def login_view(request):
                login(request=request, user=user)
                if next_url:
                    return redirect(next_url)
-               url_ok = reverse('Home')
+               url_ok = reverse('home')
                return redirect(url_ok)
    else:  # GET
        form = AuthenticationForm()
@@ -69,7 +69,7 @@ def avatar_upload(request):
           avatar = form.save()
           avatar.user = request.user
           avatar.save()
-          url_ok = reverse('Home')
+          url_ok = reverse('home')
           return redirect(url_ok)
   else:  # GET
       form = AvatarForm()
