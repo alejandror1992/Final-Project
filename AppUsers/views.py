@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse, reverse_lazy
-from AppUsers.form import UserRegisterForm, UserUpdateForm, AvatarForm
-from django.contrib.auth.models import User
+from django.urls import reverse #reverse_lazy
+from AppUsers.form import UserRegisterForm, AvatarForm #UserUpdateForm
+#from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import UpdateView
+#from django.contrib.auth.mixins import LoginRequiredMixin
+#from django.views.generic import UpdateView
 
 
 
@@ -65,17 +65,17 @@ def avatar_upload(request):
   if request.method == "POST":
       form = AvatarForm(request.POST, request.FILES)
 
-      if formulario.is_valid():
+      if form.is_valid():
           avatar = form.save()
           avatar.user = request.user
           avatar.save()
           url_ok = reverse('Home')
           return redirect(url_ok)
   else:  # GET
-      formulario = AvatarForm()
+      form = AvatarForm()
   return render(
       request=request,
-      template_name="perfiles/formulario_avatar.html",
+      template_name="AppDjango/profile.html",
       context={'form': form},
   )
 
