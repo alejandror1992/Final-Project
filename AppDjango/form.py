@@ -9,7 +9,7 @@ class EventForm(forms.ModelForm):
 class AcademyForm(forms.ModelForm):
     class Meta:
         model = Academy
-        fields = ['name', 'address', 'description', 'styles']
+        fields = ['name', 'address', 'description', 'styles', 'created_by', 'featured']
 
 class ProfileForm(forms.ModelForm):
     styles = forms.ModelMultipleChoiceField(queryset= Style.objects.all())
