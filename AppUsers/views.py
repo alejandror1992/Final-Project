@@ -22,7 +22,7 @@ def register(request):
        registerform = UserRegisterForm()
    return render(
        request=request,
-       template_name='AppUsers\register.html',
+       template_name='AppUsers/templates/register.html',
        context={'form': registerform},
    )
 
@@ -47,12 +47,12 @@ def login_view(request):
        form = AuthenticationForm()
    return render(
        request=request,
-       template_name='AppUsers\login.html',
+       template_name='AppUsers/templates/login.html',
        context={'form': form},
    )
 
 class CustomLogoutView(LogoutView):
-    template_name = 'AppUsers\logout.html'
+    template_name = 'AppUses/templates/logout.html'
 
 #class MyProfileUpdateView(LoginRequiredMixin, UpdateView):
    #form_class = UserUpdateForm
