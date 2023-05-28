@@ -51,7 +51,7 @@ def login_view(request):
    )
 
 class CustomLogoutView(LogoutView):
-    template_name = 'AppUses/logout.html'
+    template_name = 'AppUsers/logout.html'
 
 #class MyProfileUpdateView(LoginRequiredMixin, UpdateView):
    #form_class = UserUpdateForm
