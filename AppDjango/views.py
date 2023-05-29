@@ -91,7 +91,7 @@ def edit_academy(request, pk):
            return redirect('academy')
     else:
         form = AcademyForm(instance=academy)
-    return render(request, 'form.html', {'form': form})
+    return render(request, 'AppDjango/form.html', {'form': form})
 
 
 @login_required
