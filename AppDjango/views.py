@@ -19,21 +19,21 @@ def academy (request):
     return render(request, "academy.html",context)
 
 def event (request):
-    events = Event.objects.all()
-    context = {"events":events,}
+    event = Event.objects.all()
+    context = {"event":event,}
     return render(request, "events.html",context)
 
 @login_required
 def profile (request, query=None):
-    user_profile = UserProfile.objects.get(user=request.user)
-    context = {"user_profile":user_profile,}  
+    user_profile = UserProfile.objects.get(user=request.user) 
     academies = Academy.objects.all()
-    events = Event.filter.objects.all()
+    events = Event.objects.all()
     if query:
       academies = academies.filter(name__icontains=query)
       events = events.filter(name__icontains=query)
     
     context = {
+        'user_profile': user_profile,
         'academies': academies,
         'events': events,
     }
@@ -46,8 +46,8 @@ def form(request):
     profile_form = ProfileForm(request.POST)
         
     if 'create_event' in request.POST:
-       if request.user.is_authenticated and (request.user in academy_form.created_by.all() or request.user == request.user.profile):
-          event_form = EventForm(request.POST)
+       if request.user.is_authenticated and (request.user in academy.created_by.all() or request.user == request.user.profile.user):
+
           if event_form.is_valid():
             event = event_form.save(commit=False)
             event.created_by = request.user
@@ -56,15 +56,15 @@ def form(request):
        else: return HttpResponseForbidden()
 
     elif 'create_profile' in request.POST:
-      profile_form = ProfileForm(request.POST)
+      
       if profile_form.is_valid():
          profile = profile_form.save(commit=False)
-         profile.user = request.user.profile
+         profile.user = request.user.profile.user
          profile.save()
          return redirect('profile')
     
     elif 'create_academy' in request.POST:
-      academy_form = AcademyForm(request.POST)
+      
       if academy_form.is_valid():
         academy = academy_form.save(commit=False)
         academy.created_by = request.user
