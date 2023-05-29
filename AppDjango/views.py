@@ -46,7 +46,7 @@ def form(request):
     profile_form = ProfileForm(request.POST)
         
     if 'create_event' in request.POST:
-       if request.user.is_authenticated and (request.user in academy.created_by.all() or request.user == request.user.profile):
+       if request.user.is_authenticated and (request.user in academy_form.created_by.all() or request.user == request.user.profile):
           event_form = EventForm(request.POST)
           if event_form.is_valid():
             event = event_form.save(commit=False)
@@ -116,4 +116,4 @@ def change_password(request):
             return redirect('home')
     else:
         form = PasswordChangeForm(user=request.user)
-    return render(request, 'form.html', {'form': form})
+    return render(request, 'AppDjango/form.html', {'form': form})
