@@ -27,8 +27,8 @@ def event (request):
 def profile (request, query=None):
     user_profile = UserProfile.objects.get(user=request.user)
     context = {"user_profile":user_profile,}  
-    academies = academy.objects.all()
-    events = event.filter.objects.all()
+    academies = Academy.objects.all()
+    events = Event.filter.objects.all()
     if query:
       academies = academies.filter(name__icontains=query)
       events = events.filter(name__icontains=query)
