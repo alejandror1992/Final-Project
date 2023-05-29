@@ -73,7 +73,7 @@ class UserProfile(models.Model):
     competitor = models.BooleanField(default=False)
     medals = models.ForeignKey(Medal, on_delete=models.CASCADE, null=True, blank=True)
     styles = models.ManyToManyField(Style, related_name='users')
-    academies_visited = models.ManyToManyField(Academy, related_name='visitors')
+    academies_visited = models.ManyToManyField(Academy, related_name='featured')
 
     #FOR MMA:
     amateur_record = models.OneToOneField("Record", on_delete=models.CASCADE, related_name="amateur_profile", null=True, blank=True)

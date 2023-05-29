@@ -91,7 +91,7 @@ def edit_academy(request, pk):
            return redirect('academy')
     else:
         form = AcademyForm(instance=academy)
-    return render(request, 'AppDjango/form.html', {'form': form})
+    return render(request, 'form.html', {'form': form})
 
 
 @login_required
@@ -104,7 +104,7 @@ def edit_user(request):
             return redirect('profile')
     else:
         form = ProfileForm(instance=user.profile)
-    return render(request, 'AppDjango/form.html', {'form': form})
+    return render(request, 'form.html', {'form': form})
 
 @login_required
 def change_password(request):
@@ -116,4 +116,4 @@ def change_password(request):
             return redirect('home')
     else:
         form = PasswordChangeForm(user=request.user)
-    return render(request, 'AppDjango/form.html', {'form': form})
+    return render(request, 'form.html', {'form': form})
