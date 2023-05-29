@@ -81,7 +81,7 @@ def form(request):
 
 @login_required
 def edit_academy(request, pk):
-    academy = Academy.objects.filter(created_by=request.user, pk=pk).first()
+    academy = Academy.objects.get(created_by=request.user, pk=pk)
     if request.method == 'POST':
         if not academy:
            return HttpResponseForbidden()
