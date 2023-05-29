@@ -7,6 +7,9 @@ class EventForm(forms.ModelForm):
         fields = ['name', 'location', 'date', 'description']
 
 class AcademyForm(forms.ModelForm):
+    def __init__(self,*args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['styles'].queryset = Style.allowed_objects.all()
     class Meta:
         model = Academy
         fields = ['name', 'address', 'description', 'styles', 'created_by', 'featured']
