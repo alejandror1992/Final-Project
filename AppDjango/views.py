@@ -59,7 +59,7 @@ def form(request):
       
       if profile_form.is_valid():
          profile = profile_form.save(commit=False)
-         profile.user = request.user.profile.user
+         profile.user = request.user
          profile.save()
          return redirect('profile')
     
@@ -76,7 +76,7 @@ def form(request):
     profile_form = ProfileForm()
     academy_form = AcademyForm()
         
-  return render(request, 'AppDjango/form.html', {'EventForm': event_form, 'AcademyForm': academy_form, 'ProfileForm': profile_form})
+  return render(request, 'form.html', {'EventForm': event_form, 'AcademyForm': academy_form, 'ProfileForm': profile_form})
 
 
 @login_required
