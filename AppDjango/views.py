@@ -18,7 +18,7 @@ def academy (request):
     context = {"academy":academy,}
     return render(request, "academy.html",context)
 
-def events (request):
+def event (request):
     events = Event.objects.all()
     context = {"events":events,}
     return render(request, "events.html",context)
@@ -28,7 +28,7 @@ def profile (request, query=None):
     user_profile = UserProfile.objects.get(user=request.user)
     context = {"user_profile":user_profile,}  
     academies = academy.objects.all()
-    events = events.filter.objects.all()
+    events = event.filter.objects.all()
     if query:
       academies = academies.filter(name__icontains=query)
       events = events.filter(name__icontains=query)
@@ -104,7 +104,7 @@ def edit_user(request):
             return redirect('profile')
     else:
         form = ProfileForm(instance=user.profile)
-    return render(request, 'form.html', {'form': form})
+    return render(request, 'AppDjango/form.html', {'form': form})
 
 @login_required
 def change_password(request):
