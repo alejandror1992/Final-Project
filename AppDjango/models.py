@@ -50,7 +50,7 @@ class Academy(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     description = models.TextField()
-    styles = models.ManyToManyField(Style, related_name='academies', limit_choices_to={"allowed_objects":True})
+    styles = models.ManyToManyField(Style, related_name='academies', limit_choices_to=Style.allowed_objects.queryset.query)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='academies_created')
     featured = models.BooleanField(default=False)
     def __str__(self):
