@@ -4,14 +4,16 @@ from AppUsers.form import AvatarForm
 
 class AllowedStylesManager(models.Manager):
     def get_queryset(self):
-        allowed_styles = ['Karate', 'Judo', 'Taekwondo','MMA', 'KungFu']  # replace with your allowed styles
+        allowed_styles = Style.allowed_styles()
         return super().get_queryset().filter(name__in=allowed_styles)
 
 class Style(models.Model):
     name = models.CharField(max_length=100)
     objects = models.Manager()  # default manager
     allowed_objects = AllowedStylesManager()  # custom manager
-
+    @classmethod
+    def allowed_styles(cls):
+        return ['Karate', 'Judo', 'Taekwondo','MMA', 'KungFu']  # replace with your allowed styles
     def __str__(self):
         return self.name
 
@@ -67,6 +69,9 @@ class Event(models.Model):
         return self.name
 
 class UserProfile(models.Model):
+    @property
+    def allowed_styles(self):
+        return Style.allowed_styles()
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = AvatarForm
     bio = models.TextField(blank=True)
