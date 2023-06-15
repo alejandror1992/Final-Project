@@ -91,7 +91,7 @@ def edit_academy(request, pk):
            return redirect('academy')
     else:
         form = AcademyForm(instance=academy)
-        form.fields["styles"].initial = academy.styles.values_listt("pk", flat=True)
+        form.fields["styles"].initial = list(academy.styles.values_listt("pk", flat=False))
     return render(request, 'form.html', {'form': form})
 
 
@@ -105,8 +105,8 @@ def edit_user(request):
             return redirect('profile')
     else:
         form = ProfileForm(instance=user.profile)
-        form.fields["styles"].initial = user.profile.styles.values_list("pk", flat=True)
-        form.fields["academies_visited"].initial = user.profile.academies_visited.values_list("pk", flat=True)
+        form.fields["styles"].initial = list(user.profile.styles.values_list("pk", flat=False))
+        form.fields["academies_visited"].initial = list(user.profile.academies_visited.values_list("pk", flat=False))
     return render(request, 'form.html', {'form': form})
 
 @login_required
