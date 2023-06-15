@@ -87,7 +87,9 @@ def edit_academy(request, pk):
            return HttpResponseForbidden()
         form = AcademyForm(request.POST, instance=academy)
         if form.is_valid():
-           form.save()
+           academy = form.save(comit=False)
+           academy.styles.set(form.cleaned_data["styles"])
+           academy.save()
            return redirect('academy')
     else:
         form = AcademyForm(instance=academy)
@@ -101,7 +103,10 @@ def edit_user(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=user.profile)
         if form.is_valid():
-            form.save()
+            profile = form.save(commit=False)
+            profile.styles.set(form.cleaned_data["styles"])
+            profile.academies_visited.set(form.clenaed_data["academies_visited"])
+            profile.save()
             return redirect('profile')
     else:
         form = ProfileForm(instance=user.profile)
