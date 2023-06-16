@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect ,get_object_or_404
 from django.http import HttpResponseForbidden
 from .form import EventForm, AcademyForm, ProfileForm
 from .models import Academy, Event, UserProfile
@@ -81,7 +81,7 @@ def form(request):
 
 @login_required
 def edit_academy(request, pk):
-    academy = Academy.objects.get(created_by=request.user, pk=pk)
+    academy = get_object_or_404( Academy, created_by=request.user, pk=pk)
     if request.method == 'POST':
         if not academy:
            return HttpResponseForbidden()
@@ -100,6 +100,7 @@ def edit_academy(request, pk):
 @login_required
 def edit_user(request):
     user = request.user
+    profile = get_object_or_404(UserProfile, user=user)
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=user.profile)
         if form.is_valid():
@@ -110,8 +111,8 @@ def edit_user(request):
             return redirect('profile')
     else:
         form = ProfileForm(instance=user.profile)
-        form.fields["styles"].initial = list(user.profile.styles.values_list("pk", flat=False))
-        form.fields["academies_visited"].initial = list(user.profile.academies_visited.values_list("pk", flat=False))
+        form.fields["styles"].initial = list(user.profile.styles.values_list("pk", flat=True))
+        form.fields["academies_visited"].initial = list(user.profile.academies_visited.values_list("pk", flat=True))
     return render(request, 'form.html', {'form': form})
 
 @login_required
