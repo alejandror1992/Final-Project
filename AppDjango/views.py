@@ -87,7 +87,7 @@ def edit_academy(request, pk):
            return HttpResponseForbidden()
         form = AcademyForm(request.POST, instance=academy)
         if form.is_valid():
-           academy = form.save(comit=False)
+           academy = form.save(commit=False)
            academy.styles.set(form.cleaned_data["styles"])
            academy.save()
            return redirect('academy')
