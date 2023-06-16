@@ -93,7 +93,7 @@ def edit_academy(request, pk):
            return redirect('academy')
     else:
         form = AcademyForm(instance=academy)
-        form.fields["styles"].initial = list(academy.styles.values_listt("pk", flat=False))
+        form.fields["styles"].initial = list(academy.styles.values_list("pk", flat=False))
     return render(request, 'form.html', {'form': form})
 
 
@@ -106,7 +106,7 @@ def edit_user(request):
         if form.is_valid():
             profile = form.save(commit=False)
             profile.styles.set(form.cleaned_data["styles"])
-            profile.academies_visited.set(form.clenaed_data["academies_visited"])
+            profile.academies_visited.set(form.cleaned_data["academies_visited"])
             profile.save()
             return redirect('profile')
     else:
