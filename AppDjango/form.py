@@ -29,15 +29,17 @@ class AcademyForm(forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):
     styles = forms.ModelMultipleChoiceField(queryset=Style.allowed_objects.all(), widget=forms.CheckboxSelectMultiple)
-
+    academies_visited = forms.ModelMultipleChoiceField(queryset=Academy.allowed_objects.all(), widget=forms.CheckboxSelectMultiple)
+    
     class Meta:
         model = UserProfile
-        fields = ['user', 'bio', 'medals', 'amateur_record', 'professional_record', 'styles', 'academies_visited']
+        fields = ['user', 'bio', 'medals', 'amateur_record', 'professional_record']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance.pk:
             self.fields['styles'].initial = self.instance.styles.values_list('pk', flat=True)
+            self.fields['academies_visited'].initial = self.instance.academies_visited.values_list('pk', flat=True)
 
     def save(self, commit=True):
         profile = super().save(commit=False)
@@ -45,5 +47,6 @@ class ProfileForm(forms.ModelForm):
             profile.save()
         if profile.pk:
             profile.styles.set(self.cleaned_data['styles'])
+            profile.academies_visited.set(self.cleaned_data["academies_visited"])
             self.save_m2m()
         return profile
