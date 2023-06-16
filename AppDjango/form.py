@@ -29,7 +29,7 @@ class AcademyForm(forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):
     styles = forms.ModelMultipleChoiceField(queryset=Style.allowed_objects.all(), widget=forms.CheckboxSelectMultiple)
-    academies_visited = forms.ModelMultipleChoiceField(queryset=Academy.allowed_objects.all(), widget=forms.CheckboxSelectMultiple)
+    academies_visited = forms.ModelMultipleChoiceField(queryset=Academy.objects.allowed_objects.all(), widget=forms.CheckboxSelectMultiple)
     
     class Meta:
         model = UserProfile
