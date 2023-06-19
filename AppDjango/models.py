@@ -30,15 +30,16 @@ class Medal(models.Model):
         ('silver', 'Silver'),
         ('bronze', 'Bronze')
     ]
-    medal = models.CharField(max_length=6, choices=MEDAL_CHOICES)
-    count = models.IntegerField(default=0)
-    style = models.ForeignKey(Style, on_delete=models.CASCADE, related_name='medals')
+    gold = models.IntegerField(default=0)
+    siler = models.IntegerField(default=0)
+    bronce = models.IntegerField(default=0)
+    style = models.ManyToManyField(Style, related_name='medals')
     
     objects = models.Manager()
     competitor_objects = MedalManager()
 
     def __str__(self):
-        return f'{self.medal} medal({self.count}) for{self.style.name}'
+        return f'Medals - Gold:{self.gold}, Silver:{self.silver}, Bronce:{self.bronce}'
     
 class Record(models.Model):
     wins = models.PositiveIntegerField(default=0)
