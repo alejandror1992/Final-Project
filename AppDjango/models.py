@@ -31,7 +31,7 @@ class Medal(models.Model):
         ('bronze', 'Bronze')
     ]
     gold = models.IntegerField(default=0)
-    siler = models.IntegerField(default=0)
+    silver = models.IntegerField(default=0)
     bronce = models.IntegerField(default=0)
     style = models.ManyToManyField(Style, related_name='medals')
     
