@@ -9,8 +9,7 @@ class AllowedStylesManager(models.Manager):
 
 class Style(models.Model):
     name = models.CharField(max_length=100)
-    objects = models.Manager()  # default manager
-    allowed_objects = AllowedStylesManager()  # custom manager
+    allowed_styles = AllowedStylesManager()  # custom manager
     @classmethod
     def allowed_styles(cls):
         return ['Karate', 'Judo', 'Taekwondo','MMA', 'KungFu']  # replace with your allowed styles
@@ -18,9 +17,10 @@ class Style(models.Model):
         return self.name
 
 class MedalManager(models.Manager):
-    def get_queryset(self, allowed_styles):
-        if allowed_styles == ['Karate', 'Judo', 'Taekwondo', 'KungFu']:
-             return super().get_queryset().filter(style__name__in=self.allowed_styles)
+    def get_queryset(self):
+        allowed_styles = Style.allowed_styles()
+        if UserProfile.objects.filter(competitor=True).exists():
+             return super().get_queryset().filter(style__name__in= allowed_styles)
         else:
             return Medal.objects.none()
 
@@ -77,7 +77,7 @@ class UserProfile(models.Model):
     bio = models.TextField(blank=True)
     competitor = models.BooleanField(default=False)
     medals = models.ForeignKey(Medal, on_delete=models.CASCADE, null=True, blank=True)
-    styles = models.ManyToManyField(Style, related_name='users')
+    styles = models.ManyToManyField(Style, related_name='users',default=Style.allowed_styles)
     academies_visited = models.ManyToManyField(Academy, related_name='visitors')
 
     #FOR MMA:
