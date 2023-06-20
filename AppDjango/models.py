@@ -86,7 +86,12 @@ class UserProfile(models.Model):
     professional_record = models.OneToOneField("Record", on_delete=models.CASCADE, related_name="professional_profile", null=True, blank=True)
 
     def __str__(self):
-        return self.user.username
+        medals_info = f"Medals:\n---------\nGold: {self.medals.gold}\nSilver: {self.medals.silver}\nBronze: {self.medals.bronze}"
+        amateur_record_info = f"Amateur record:\n---------\n{self.amateur_record}"
+        professional_record_info = f"Professional record:\n---------\n{self.professional_record}"
+        styles_info = f"Styles:\n---------\n" + ", ".join(str(style) for style in self.styles.all())
+        academies_visited_info = f"Academies visited:\n---------\n" + ", ".join(str(academy) for academy in self.academies_visited.all())
+        return f"Competitor: {self.user.username}\n\n{medals_info}\n\n{amateur_record_info}\n\n{professional_record_info}\n\n{styles_info}\n\n{academies_visited_info}"
 
     def save(self, *args, **kwargs):
         if self.styles.filter(name='MMA').exists() and self.competitor:
