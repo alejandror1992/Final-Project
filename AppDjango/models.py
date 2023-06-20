@@ -94,12 +94,17 @@ class UserProfile(models.Model):
         return f"Competitor: {self.user.username}\n\n{medals_info}\n\n{amateur_record_info}\n\n{professional_record_info}\n\n{styles_info}\n\n{academies_visited_info}"
 
     def save(self, *args, **kwargs):
-        if self.styles.filter(name='MMA').exists() and self.competitor:
+      if self.competitor:
+        if self.styles.filter(name='MMA').exists():
             if not hasattr(self, "amateur_record"):
                 self.amateur_record = Record.objects.create()
             if not hasattr(self, "professional_record"):
                 self.professional_record = Record.objects.create()
+            else:
+                if not self.medals:
+                    self.medals =Medal.objects.create()
         else:
+            self.medals = None
             self.amateur_record = None
             self.professional_record = None
 
