@@ -2,41 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 from AppUsers.form import AvatarForm
 
-class AllowedStylesManager(models.Manager):
-    def get_queryset(self):
-        allowed_styles = Style.allowed_styles()
-        return super().get_queryset().filter(name__in=allowed_styles)
-
 class Style(models.Model):
-    name = models.CharField(max_length=100)
-    allowed_styles = AllowedStylesManager()  # custom manager
-    @classmethod
-    def allowed_styles(cls):
+    @staticmethod
+    def allowed_styles():
         return ['Karate', 'Judo', 'Taekwondo','MMA', 'KungFu']  # replace with your allowed styles
-    def __str__(self):
-        return self.name
 
-class MedalManager(models.Manager):
-    def get_queryset(self):
-        allowed_styles = Style.allowed_styles()
-        if UserProfile.objects.filter(competitor=True).exists():
-             return super().get_queryset().filter(style__name__in= allowed_styles)
-        else:
-            return Medal.objects.none()
 
 class Medal(models.Model):
-    MEDAL_CHOICES = [
-        ('gold', 'Gold'),
-        ('silver', 'Silver'),
-        ('bronze', 'Bronze')
-    ]
+
     gold = models.IntegerField(default=0)
     silver = models.IntegerField(default=0)
     bronce = models.IntegerField(default=0)
-    style = models.ManyToManyField(Style, related_name='medals')
-    
-    objects = models.Manager()
-    competitor_objects = MedalManager()
 
     def __str__(self):
         return f'Medals - Gold:{self.gold}, Silver:{self.silver}, Bronce:{self.bronce}'
@@ -98,11 +74,17 @@ class UserProfile(models.Model):
         if self.styles.filter(name='MMA').exists():
             if not hasattr(self, "amateur_record"):
                 self.amateur_record = Record.objects.create()
+                self.amateur_record.save()
+                self.amateur_record.styles.set(self.styles.all())
             if not hasattr(self, "professional_record"):
                 self.professional_record = Record.objects.create()
+                self.professional_record.save()
+                self.professional_record.styles.set(self.styles.all())
             else:
                 if not self.medals:
                     self.medals =Medal.objects.create()
+                    self.medals.save()
+                    self.medals.styles.set(self.styles.all())
         else:
             self.medals = None
             self.amateur_record = None
