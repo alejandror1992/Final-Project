@@ -19,4 +19,4 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ['user',"bio","competitor", 'medals', 'amateur_record', 'professional_record', 'styles', 'academies_visited']
+        fields = ['user',"bio","competitor", 'medals_info', 'amateur_record', 'professional_record', 'styles', 'academies_visited']

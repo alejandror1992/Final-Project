@@ -53,7 +53,7 @@ class UserProfile(models.Model):
     avatar = AvatarForm
     bio = models.TextField(blank=True)
     competitor = models.BooleanField(default=False)
-    medals = models.TextField(blank=True)
+    medals = models.ForeignKey(Medal, on_delete=models.CASCADE, null=True, blank=True)
     academies_visited = models.ManyToManyField(Academy, related_name='visitors')
 
     #FOR MMA:
