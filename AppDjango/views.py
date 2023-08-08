@@ -25,7 +25,7 @@ def event (request):
 
 @login_required
 def profile (request, query=None):
-    user_profile = UserProfile.objects.get(user=request.user) 
+    user_profile = get_object_or_404(UserProfile, user=request.user)
     academies = Academy.objects.all()
     events = Event.objects.all()
     if query:
