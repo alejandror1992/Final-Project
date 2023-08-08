@@ -56,8 +56,8 @@ class UserProfile(models.Model):
     medals = models.ForeignKey(Medal, on_delete=models.CASCADE, null=True, blank=True)
     academies_visited = models.ManyToManyField(Academy, related_name='visitors')
     #FOR MMA:
-    amateur_record = models.ForeignKey(Record, on_delete=models.CASCADE, null=True, blank=True)
-    professional_record = models.ForeignKey(Record, on_delete=models.CASCADE, null=True, blank=True)
+    amateur_record = models.ForeignKey(Record, on_delete=models.CASCADE, null=True, blank=True, related_name="amateur_record")
+    professional_record = models.ForeignKey(Record, on_delete=models.CASCADE, null=True, blank=True, related_name="profesional_record")
 
     def save(self, *args, **kwargs):
       if self.competitor:
