@@ -111,7 +111,7 @@ def edit_user(request):
             return redirect('profile')
     else:
         form = ProfileForm(instance=user.profile)
-        form.fields["styles"].initial = list(user.profile.styles.values_list("pk", flat=True))
+        form.fields["styles"].initial = list(user.profile.styles.all())
         form.fields["academies_visited"].initial = list(user.profile.academies_visited.values_list("pk", flat=True))
     return render(request, 'form.html', {'form': form})
 
