@@ -10,17 +10,17 @@ class Style(models.Model):
 
 class Medal(models.Model):
 
-    gold = input(models.IntegerField(default=0))
-    silver = input(models.IntegerField(default=0))
-    bronce = input(models.IntegerField(default=0))
+    gold = models.IntegerField(default=0)
+    silver = models.IntegerField(default=0)
+    bronce = models.IntegerField(default=0)
 
     def __str__(self):
         return f"Medals:\n---------\nGold: {self.gold}\nSilver: {self.silver}\nBronze: {self.bronze}"
     
 class Record(models.Model):
-    wins = input(models.PositiveIntegerField(default=0))
-    losses = input(models.PositiveIntegerField(default=0))
-    no_contest = input(models.PositiveIntegerField(default=0))
+    wins = models.PositiveIntegerField(default=0)
+    losses = models.PositiveIntegerField(default=0)
+    no_contest = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f'{self.wins} - {self.losses} - {self.no_contest}'
@@ -55,18 +55,9 @@ class UserProfile(models.Model):
     competitor = models.BooleanField(default=False)
     medals = models.ForeignKey(Medal, on_delete=models.CASCADE, null=True, blank=True)
     academies_visited = models.ManyToManyField(Academy, related_name='visitors')
-
     #FOR MMA:
-    amateur_record = models.OneToOneField("Record", on_delete=models.CASCADE, related_name="amateur_profile", null=True, blank=True)
-    professional_record = models.OneToOneField("Record", on_delete=models.CASCADE, related_name="professional_profile", null=True, blank=True)
-
-    def __str__(self):
-        
-        amateur_record_info = f"Amateur record:\n---------\n{self.amateur_record}"
-        professional_record_info = f"Professional record:\n---------\n{self.professional_record}"
-        styles_info = f"Styles:\n---------\n" + ", ".join(str(style) for style in self.styles.all())
-        academies_visited_info = f"Academies visited:\n---------\n" + ", ".join(str(academy) for academy in self.academies_visited.all())
-        return f"Competitor: {self.user.username}\n\n{medals_info}\n\n{amateur_record_info}\n\n{professional_record_info}\n\n{styles_info}\n\n{academies_visited_info}"
+    amateur_record = models.ForeignKey(Record, on_delete=models.CASCADE, null=True, blank=True)
+    professional_record = models.ForeignKey(Record, on_delete=models.CASCADE, null=True, blank=True)
 
     def save(self, *args, **kwargs):
       if self.competitor:
