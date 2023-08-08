@@ -10,17 +10,17 @@ class Style(models.Model):
 
 class Medal(models.Model):
 
-    gold = models.IntegerField(default=0)
-    silver = models.IntegerField(default=0)
-    bronce = models.IntegerField(default=0)
+    gold = input(models.IntegerField(default=0))
+    silver = input(models.IntegerField(default=0))
+    bronce = input(models.IntegerField(default=0))
 
     def __str__(self):
-        return f'Medals - Gold:{self.gold}, Silver:{self.silver}, Bronce:{self.bronce}'
+        return f"Medals:\n---------\nGold: {self.gold}\nSilver: {self.silver}\nBronze: {self.bronze}"
     
 class Record(models.Model):
-    wins = models.PositiveIntegerField(default=0)
-    losses = models.PositiveIntegerField(default=0)
-    no_contest = models.PositiveIntegerField(default=0)
+    wins = input(models.PositiveIntegerField(default=0))
+    losses = input(models.PositiveIntegerField(default=0))
+    no_contest = input(models.PositiveIntegerField(default=0))
 
     def __str__(self):
         return f'{self.wins} - {self.losses} - {self.no_contest}'
@@ -61,7 +61,7 @@ class UserProfile(models.Model):
     professional_record = models.OneToOneField("Record", on_delete=models.CASCADE, related_name="professional_profile", null=True, blank=True)
 
     def __str__(self):
-        medals_info = f"Medals:\n---------\nGold: {self.medals.gold}\nSilver: {self.medals.silver}\nBronze: {self.medals.bronze}"
+        
         amateur_record_info = f"Amateur record:\n---------\n{self.amateur_record}"
         professional_record_info = f"Professional record:\n---------\n{self.professional_record}"
         styles_info = f"Styles:\n---------\n" + ", ".join(str(style) for style in self.styles.all())
@@ -90,5 +90,3 @@ class UserProfile(models.Model):
             self.professional_record = None
 
         super().save(*args, **kwargs)
-
-    
