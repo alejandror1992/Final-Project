@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from AppUsers.form import AvatarForm
 
-class Style():
+class Style(models.Model):
     @staticmethod
     def allowed_styles():
         return ['Karate', 'Judo', 'Taekwondo','MMA', 'KungFu']  # replace with your allowed styles
@@ -54,7 +54,6 @@ class UserProfile(models.Model):
     bio = models.TextField(blank=True)
     competitor = models.BooleanField(default=False)
     medals = models.ForeignKey(Medal, on_delete=models.CASCADE, null=True, blank=True)
-    styles = models.ManyToManyField("AppDjango.Style", related_name='users',default=Style.allowed_styles)
     academies_visited = models.ManyToManyField(Academy, related_name='visitors')
 
     #FOR MMA:
