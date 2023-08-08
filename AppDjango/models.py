@@ -2,9 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from AppUsers.form import AvatarForm
 
-class Style(models.Model):
-    @staticmethod
-    def allowed_styles():
+
+@staticmethod
+def allowed_styles():
         return ['Karate', 'Judo', 'Taekwondo','MMA', 'KungFu']  # replace with your allowed styles
 
 
@@ -29,7 +29,7 @@ class Academy(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     description = models.TextField()
-    styles = models.ManyToManyField(Style, related_name='academies')
+    styles = models.ManyToManyField(allowed_styles, related_name='academies')
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='academies_created')
     featured = models.BooleanField(default=False)
     def __str__(self):
@@ -48,13 +48,13 @@ class Event(models.Model):
 class UserProfile(models.Model):
     @property
     def allowed_styles(self):
-        return Style.allowed_styles()
+        return allowed_styles()
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = AvatarForm
     bio = models.TextField(blank=True)
     competitor = models.BooleanField(default=False)
     medals = models.ForeignKey(Medal, on_delete=models.CASCADE, null=True, blank=True)
-    styles = models.ManyToManyField(Style, related_name='users',default=Style.allowed_styles)
+    styles = models.ManyToManyField(allowed_styles, related_name='users',default=allowed_styles)
     academies_visited = models.ManyToManyField(Academy, related_name='visitors')
 
     #FOR MMA:

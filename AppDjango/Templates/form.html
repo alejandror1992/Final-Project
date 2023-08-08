@@ -32,4 +32,30 @@
     {{ EventForm.as_p }}
     <button type="submit">Create</button>
   </form>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+  $(document).ready(function() {
+      var competitorCheckbox = $('#id_competitor');
+      var stylesSelect = $('#id_styles');
+      var medalsDiv = $('#id_medals');
+      var recordsDiv = $('#id_amateur_record, #id_professional_record');
+      
+      // Initialize field visibility based on initial form values
+      toggleFields();
+  
+      // Toggle fields on checkbox and select change
+      competitorCheckbox.change(toggleFields);
+      stylesSelect.change(toggleFields);
+  
+      function toggleFields() {
+          var isCompetitor = competitorCheckbox.is(':checked');
+          var selectedStyles = stylesSelect.val();
+  
+          medalsDiv.toggle(isCompetitor && selectedStyles && selectedStyles.includes('MMA'));
+          recordsDiv.toggle(isCompetitor && selectedStyles && selectedStyles.includes('MMA'));
+      }
+  });
+  </script>
+  
 {% endblock %}
