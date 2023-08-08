@@ -54,7 +54,7 @@ class UserProfile(models.Model):
     bio = models.TextField(blank=True)
     competitor = models.BooleanField(default=False)
     medals = models.ForeignKey(Medal, on_delete=models.CASCADE, null=True, blank=True)
-    styles = models.ManyToManyField(Style, related_name='users',default=allowed_styles)
+    styles = models.ManyToManyField("AppDjango.Style", related_name='users',default=Style.allowed_styles)
     academies_visited = models.ManyToManyField(Academy, related_name='visitors')
 
     #FOR MMA:
