@@ -52,6 +52,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = AvatarForm
     bio = models.TextField(blank=True)
+    styles = models.ForeignKey(Style, on_delete=models.CASCADE, null=True, blank=True)
     competitor = models.BooleanField(default=False)
     medals = models.ForeignKey(Medal, on_delete=models.CASCADE, null=True, blank=True)
     academies_visited = models.ManyToManyField(Academy, related_name='visitors')
