@@ -14,6 +14,7 @@
   <form method="POST">
     {% csrf_token %}
     {{ ProfileForm.as_p }}
+    {{ form.styles }}
     <button type="submit">Save</button>
   </form>
 
