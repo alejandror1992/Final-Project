@@ -15,6 +15,10 @@
     {% csrf_token %}
     {{ ProfileForm.as_p }}
     {{ form.styles }}
+    <div class="form-group">
+      <label for="{{ form.medals.id_for_label }}">Medals:</label>
+      {{ form.medals }}
+    </div>
     <button type="submit">Save</button>
   </form>
 
