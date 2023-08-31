@@ -14,7 +14,15 @@
   <form method="POST">
     {% csrf_token %}
     {{ ProfileForm.as_p }}
-    {{ form.styles }}
+    
+    <div id="id_medals">
+      <label for="{{ MedalForm.gold.id_for_label }}">Gold:</label>
+      {{ MedalForm.gold }}
+      <label for="{{ MedalForm.silver.id_for_label }}">Silver:</label>
+      {{ MedalForm.silver }}
+      <label for="{{ MedalForm.bronze.id_for_label }}">Bronze:</label>
+      {{ MedalForm.bronze }}
+    </div>    
     <button type="submit">Save</button>
   </form>
 
