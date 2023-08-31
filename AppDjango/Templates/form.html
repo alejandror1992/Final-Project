@@ -11,20 +11,30 @@
   <hr>
 
   <h2>Edit Profile</h2>
-  <form method="POST">
+<form method="POST">
     {% csrf_token %}
     {{ ProfileForm.as_p }}
-    
     <div id="id_medals">
-      <label for="{{ MedalForm.gold.id_for_label }}">Gold:</label>
-      {{ MedalForm.gold }}
-      <label for="{{ MedalForm.silver.id_for_label }}">Silver:</label>
-      {{ MedalForm.silver }}
-      <label for="{{ MedalForm.bronze.id_for_label }}">Bronze:</label>
-      {{ MedalForm.bronze }}
-    </div>    
+        <h3>Medals:</h3>
+        {{ ProfileForm.MedalForm.gold }} Gold
+        {{ ProfileForm.MedalForm.silver }} Silver
+        {{ ProfileForm.MedalForm.bronze }} Bronze
+    </div>
+    <div id="id_amateur_record">
+        <h3>Amateur Record:</h3>
+        {{ ProfileForm.RecordForm.wins }} Wins
+        {{ ProfileForm.RecordForm.losses }} Losses
+        {{ ProfileForm.RecordForm.no_contest }} No Contest
+    </div>
+    <div id="id_professional_record">
+        <h3>Professional Record:</h3>
+        {{ ProfileForm.RecordForm.wins }} Wins
+        {{ ProfileForm.RecordForm.losses }} Losses
+        {{ ProfileForm.RecordForm.no_contest }} No Contest
+    </div>
     <button type="submit">Save</button>
-  </form>
+</form>
+
 
   <h2>Change Password</h2>
   <form method="POST">

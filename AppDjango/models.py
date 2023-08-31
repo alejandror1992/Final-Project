@@ -5,7 +5,7 @@ from AppUsers.form import AvatarForm
 class Style(models.Model):
     @staticmethod
     def allowed_styles():
-        return ['Karate', 'Judo', 'Taekwondo','MMA', 'KungFu']  # replace with your allowed styles
+        return [(1,'Karate'), (2,'Judo'), (3,'MMA')]  # replace with your allowed styles
 
 
 class Medal(models.Model):
@@ -52,9 +52,9 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = AvatarForm
     bio = models.TextField(blank=True)
-    styles = models.ForeignKey(Style, on_delete=models.CASCADE, null=True, blank=True)
+    styles = models.ManyToManyField(Style, blank=True)
     competitor = models.BooleanField(default=False)
-    medals = models.ForeignKey(Medal, on_delete=models.CASCADE, null=True, blank=True)
+    medals = models.OneToOneField(Medal, on_delete=models.CASCADE, null=True, blank=True)
     academies_visited = models.ManyToManyField(Academy, related_name='visitors')
     #FOR MMA:
     amateur_record = models.ForeignKey(Record, on_delete=models.CASCADE, null=True, blank=True, related_name="amateur_record")
