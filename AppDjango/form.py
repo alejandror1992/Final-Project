@@ -15,7 +15,7 @@ class AcademyForm(forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):
     class Meta:
-        styles = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,choices=Style.allowed_styles,)
+        styles = forms.MultipleChoiceField(choices=Style.objects.all(),widget=forms.CheckboxSelectMultiple,)
         model = UserProfile
         fields = ['user', 'bio', 'competitor', 'academies_visited']
 
