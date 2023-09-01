@@ -6,9 +6,8 @@ class Style(models.Model):
     KARATE="Karate"
     JUDO = "Judo"
     MMA = "MMA"
-    def allowed_styles():
-        return [(KARATE,'Karate'), (JUDO,'Judo'), (MMA,'MMA'),]  # replace with your allowed styles
-    name = models.CharField(max_length=20, choices= allowed_styles)
+    allowed_styles=[(KARATE,'Karate'), (JUDO,'Judo'), (MMA,'MMA'),]  # replace with your allowed styles
+    name = models.CharField(max_length=20, choices= allowed_styles, default=MMA)
     
     def __str__(self):
         return self.name
