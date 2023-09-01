@@ -3,16 +3,21 @@ from django.contrib.auth.models import User
 from AppUsers.form import AvatarForm
 
 class Style(models.Model):
-    @staticmethod
+    KARATE="Karate"
+    JUDO = "Judo"
+    MMA = "MMA"
     def allowed_styles():
-        return [(1,'Karate'), (2,'Judo'), (3,'MMA')]  # replace with your allowed styles
-
+        return [(KARATE,'Karate'), (JUDO,'Judo'), (MMA,'MMA'),]  # replace with your allowed styles
+    name = models.CharField(max_length=20, choices= allowed_styles)
+    
+    def __str__(self):
+        return self.name
 
 class Medal(models.Model):
 
     gold = models.IntegerField(default=0)
     silver = models.IntegerField(default=0)
-    bronce = models.IntegerField(default=0)
+    bronze = models.IntegerField(default=0)
 
     def __str__(self):
         return f"Medals:\n---------\nGold: {self.gold}\nSilver: {self.silver}\nBronze: {self.bronze}"

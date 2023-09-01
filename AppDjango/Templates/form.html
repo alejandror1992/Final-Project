@@ -14,24 +14,33 @@
 <form method="POST">
     {% csrf_token %}
     {{ ProfileForm.as_p }}
+
+    <div id="styles-div">
+      <h3>Select Styles:</h3>
+      {{ ProfileForm.styles }}
+  </div>
+
     <div id="id_medals">
         <h3>Medals:</h3>
         {{ ProfileForm.MedalForm.gold }} Gold
         {{ ProfileForm.MedalForm.silver }} Silver
         {{ ProfileForm.MedalForm.bronze }} Bronze
     </div>
+
     <div id="id_amateur_record">
         <h3>Amateur Record:</h3>
         {{ ProfileForm.RecordForm.wins }} Wins
         {{ ProfileForm.RecordForm.losses }} Losses
         {{ ProfileForm.RecordForm.no_contest }} No Contest
     </div>
+
     <div id="id_professional_record">
         <h3>Professional Record:</h3>
         {{ ProfileForm.RecordForm.wins }} Wins
         {{ ProfileForm.RecordForm.losses }} Losses
         {{ ProfileForm.RecordForm.no_contest }} No Contest
     </div>
+
     <button type="submit">Save</button>
 </form>
 
@@ -58,7 +67,8 @@
       var competitorCheckbox = $('#id_competitor');
       var stylesSelect = $('#id_styles');
       var medalsDiv = $('#id_medals');
-      var recordsDiv = $('#id_amateur_record, #id_professional_record');
+      var amateurRecordsDiv = $('#id_amateur_record');
+      var profesionalRecordDiv = $('#id_professional_record');
       
       // Initialize field visibility based on initial form values
       toggleFields();
@@ -71,8 +81,9 @@
           var isCompetitor = competitorCheckbox.is(':checked');
           var selectedStyles = stylesSelect.val();
   
-          medalsDiv.toggle(isCompetitor && selectedStyles && selectedStyles.includes('MMA'));
-          recordsDiv.toggle(isCompetitor && selectedStyles && selectedStyles.includes('MMA'));
+          medalsDiv.toggle(isCompetitor && selectedStyles && selectedStyles.includes['Karate',"Judo"]);
+          amateurRecordsDiv.toggle(isCompetitor && selectedStyles && selectedStyles.includes["MMA"]);
+          profesionalRecordDiv.toggle(isCompetitor&&selectedStyles&&selectedStyles.includes["MMA"]);
       }
   });
   </script>

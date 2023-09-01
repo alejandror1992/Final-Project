@@ -80,40 +80,63 @@ def form(request):
 
 
 @login_required
-def edit_academy(request, pk):
-    academy = get_object_or_404( Academy, created_by=request.user, pk=pk)
-    if request.method == 'POST':
-        if not academy:
-           return HttpResponseForbidden()
-        form = AcademyForm(request.POST, instance=academy)
-        if form.is_valid():
-           academy = form.save(commit=False)
-           academy.styles.set(form.cleaned_data["styles"])
-           academy.save()
-           return redirect('academy')
-    else:
-        form = AcademyForm(instance=academy)
-        form.fields["styles"].initial = list(academy.styles.values_list("pk", flat=False))
-    return render(request, 'form.html', {'form': form})
+def edit_user(request):
+    # Get the user's profile instance
+    user_profile = UserProfile.objects.get(user=request.user)
 
+    if request.method == 'POST':
+        # Initialize the profile form and associated forms
+        profile_form = ProfileForm(request.POST, instance=user_profile)
+        medal_form = ProfileForm.MedalForm(request.POST, instance=user_profile.medals)
+        amateur_record_form = ProfileForm.RecordForm(request.POST, instance=user_profile.amateur_record)
+        professional_record_form = ProfileForm.RecordForm(request.POST, instance=user_profile.professional_record)
+
+        # Check if all forms are valid
+        if profile_form.is_valid() and medal_form.is_valid() and amateur_record_form.is_valid() and professional_record_form.is_valid():
+            # Save the forms
+            profile = profile_form.save(commit=False)
+            medal = medal_form.save()
+            amateur_record = amateur_record_form.save()
+            professional_record = professional_record_form.save()
+            
+            # Associate the forms with the profile
+            profile.medals = medal
+            profile.amateur_record = amateur_record
+            profile.professional_record = professional_record
+            
+            # Save the profile
+            profile.save()
+
+            # Redirect to a success page or do something else
+            return redirect('profile_success')  # Replace 'profile_success' with your success URL
+
+    else:
+        # If it's a GET request, initialize the forms with existing data
+        profile_form = ProfileForm(instance=user_profile)
+        medal_form = ProfileForm.MedalForm(instance=user_profile.medals)
+        amateur_record_form = ProfileForm.RecordForm(instance=user_profile.amateur_record)
+        professional_record_form = ProfileForm.RecordForm(instance=user_profile.professional_record)
+
+    return render(request, 'edit_profile.html', {
+        'profile_form': profile_form,
+        'medal_form': medal_form,
+        'amateur_record_form': amateur_record_form,
+        'professional_record_form': professional_record_form,
+    })
 
 @login_required
-def edit_user(request):
-    user = request.user
-    profile = get_object_or_404(UserProfile, user=user)
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=user.profile)
-        if form.is_valid():
-            profile = form.save(commit=False)
-            profile.styles.set(form.cleaned_data["styles"])
-            profile.academies_visited.set(form.cleaned_data["academies_visited"])
-            profile.save()
-            return redirect('profile')
-    else:
-        form = ProfileForm(instance=user.profile)
-        form.fields["styles"].initial = list(user.profile.styles.all())
-        form.fields["academies_visited"].initial = list(user.profile.academies_visited.values_list("pk", flat=True))
-    return render(request, 'form.html', {'form': form})
+def edit_academy(request,academy_id):
+   academy=get_object_or_404(Academy,id=academy_id)
+   if request.user != academy.created_by:
+      return HttpResponseForbidden("You don't have permission to edit this academy.")
+   if request.method == "POST":
+      form = AcademyForm(request.POST, instance=academy)
+      if form.is_valid():
+         form.save()
+         return redirect("academy")
+   else:
+      form = AcademyForm(instance=academy)   
+   return render(request, "edit_academy.html",{"form":form,"academy":academy})
 
 @login_required
 def change_password(request):
