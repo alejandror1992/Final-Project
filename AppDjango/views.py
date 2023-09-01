@@ -32,10 +32,13 @@ def profile (request, query=None):
       academies = academies.filter(name__icontains=query)
       events = events.filter(name__icontains=query)
     
+    profile_form = ProfileForm()
+    
     context = {
         'user_profile': user_profile,
         'academies': academies,
         'events': events,
+        "profile_form":profile_form,
     }
     return render(request, "profile.html",context)
 
