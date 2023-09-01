@@ -17,8 +17,13 @@
 
     <div id="styles-div">
       <h3>Select Styles:</h3>
-      {{ ProfileForm.styles }}
-  </div>
+      {% for choice in ProfileForm.fields.styles.choices %}
+          <label for="{{ ProfileForm.styles.id_for_label }}_{{ forloop.counter0 }}">
+              <input type="checkbox" name="{{ ProfileForm.styles.name }}" value="{{ choice.0 }}" id="{{ ProfileForm.styles.id_for_label }}_{{ forloop.counter0 }}">
+              {{ choice.1 }}
+          </label><br>
+      {% endfor %}
+  </div>  
 
     <div id="id_medals">
         <h3>Medals:</h3>
